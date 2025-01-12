@@ -10,7 +10,7 @@
     "start": "node dist/script.js",
     "dev": "nodemon --watch src --exec ts-node ./src/script.ts",
     "lint": "eslint ./src --ext .ts",
-    "prepare": "husky install",
+    "prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then husky install; fi",
     "lint-staged": "lint-staged",
     "prettier:fix": "prettier --write --ignore-unknown ."
   },
@@ -20,6 +20,7 @@
     "express-rate-limit": "^7.5.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.6.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.5",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
