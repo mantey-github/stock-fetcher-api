@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=18.12.0
+ARG NODE_VERSION=18.18.0
 FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Node.js"
@@ -13,6 +13,7 @@ WORKDIR /app
 ENV NODE_ENV="production"
 ARG YARN_VERSION=1.22.19
 RUN npm install -g yarn@$YARN_VERSION --force
+
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
@@ -26,7 +27,7 @@ COPY ./package.json ./yarn.lock ./
 RUN yarn install --frozen-lockfile --production=false
 
 # Copy application code
-COPY ./ ./
+COPY . .
 
 # Build application
 RUN yarn run build
@@ -39,7 +40,7 @@ RUN yarn install --production=true
 FROM base
 
 # Copy built application
-COPY --from=build ./app ./app
+COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
