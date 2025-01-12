@@ -1,0 +1,47 @@
+{
+  "name": "stock-fetcher-api",
+  "version": "1.0.0",
+  "description": "API to read stocks data",
+  "main": "script.js",
+  "author": "mantey-github",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/script.js",
+    "dev": "nodemon --watch src --exec ts-node ./src/script.ts",
+    "lint": "eslint ./src --ext .ts",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "prettier:fix": "prettier --write --ignore-unknown ."
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^2.8.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.4"
+  },
+  "lint-staged": {
+    "*.{js, jsx,ts,tsx}": [
+      "eslint --quiet --fix"
+    ],
+    "*.{json,js,ts,jsx,tsx,html,md}": [
+      "prettier --write --ignore-unknown"
+    ],
+    "*.js": "eslint --cache --fix"
+  }
+}

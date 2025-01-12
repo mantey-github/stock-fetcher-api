@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "currency": "",
+    "symbol": "",
+    "fullExchangeName": ""
+  },
+  "timestamp": [],
+  "indicators": {
+    "quote": [
+      {
+        "low": [],
+        "high": [],
+        "close": [],
+        "volume": [],
+        "open": []
+      }
+    ]
+  }
+}
