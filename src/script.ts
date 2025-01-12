@@ -10,8 +10,9 @@ const port = 3000;
 const BASE_URL = process.env.BASE_URL;
 const CACHE_TTL = parseInt(process.env.CACHE_TTL || '300000', 10); // 5 minutes ttl
 
+// Enable trust proxy
+app.set('trust proxy', 1); // This trusts the first proxy (like Fly.io)
 app.use(rateLimiter);
-
 
 app.get(
     '/api/v1',
