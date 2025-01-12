@@ -6,7 +6,7 @@ import { setCache } from './cache';
 dotenv.config({ path: './.env' });
 
 const app = express();
-const port = 8080;
+const port = 3000;
 const BASE_URL = process.env.BASE_URL;
 const CACHE_TTL = parseInt(process.env.CACHE_TTL || '300000', 10); // 5 minutes ttl
 
