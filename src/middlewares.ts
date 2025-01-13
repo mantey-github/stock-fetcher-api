@@ -4,9 +4,13 @@ import { getCache } from './cache';
 const RATE_LIMIT_WINDOW_MS = parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10);
 const RATE_LIMIT_MAX_REQUESTS = parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100', 10);
 
+const isValidDate = (date: string) => {
+  return !isNaN(new Date(date).getTime());
+};
+
 const validateRequest = (req: Request, res: Response, next: NextFunction) => {
   const { market, symbol } = req.params;
-  const { start, end } = req.query;
+  const { start, end } = req.query as { start: string; end?: string };
 
   if (!market || !symbol) {
     res.status(400).json({
@@ -18,34 +22,31 @@ const validateRequest = (req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
-  const startTimestamp = parseInt(`${start}`, 10);
-  const endTimestamp = end ? parseInt(`${end}`, 10) : Infinity;
-
-  if (isNaN(startTimestamp) || startTimestamp <= 0) {
+  if (!start || !isValidDate(start)) {
     res.status(400).json({
       error: {
         code: 'Bad Request',
-        description: 'Invalid input - start date. A valid Unix timestamp is required.',
+        description: 'Invalid input - start date. A valid date (YYYY-MM-DD) is required.',
       },
     });
     return;
   }
 
-  if (end && (isNaN(endTimestamp) || endTimestamp <= 0)) {
+  if (end && !isValidDate(end)) {
     res.status(400).json({
       error: {
         code: 'Bad Request',
-        description: 'Invalid input - end date. A valid Unix timestamp is required.',
+        description: 'Invalid input - end date. A valid date (YYYY-MM-DD)  is required.',
       },
     });
     return;
   }
 
-  if (startTimestamp > endTimestamp) {
+  if (end && new Date(start) > new Date(end)) {
     res.status(400).json({
       error: {
         code: 'Bad Request',
-        description: `Invalid input - start date cannot be after end date. startDate = ${startTimestamp}, endDate = ${endTimestamp}`,
+        description: `Invalid input - start date cannot be after end date. startDate = ${start}, endDate = ${end}`,
       },
     });
     return;

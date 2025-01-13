@@ -27,7 +27,7 @@ app.get(
   [validateRequest, checkCache],
   async (req: Request, res: Response, next: NextFunction) => {
     const { market, symbol } = req.params;
-    const { start, end } = req.query;
+    const { start, end } = req.query as { start: string; end?: string };
     const cacheKey = `${market}_${symbol}_${start}_${end}`;
 
     try {
@@ -41,13 +41,7 @@ app.get(
         });
       }
 
-      const jsonData = toJson(
-        await response.text(),
-        symbol,
-        market,
-        parseInt(`${start}`, 10),
-        parseInt(`${end}`, 10) || Infinity,
-      );
+      const jsonData = toJson(await response.text(), symbol, market, start, end);
 
       // Cache the response
       setCache(cacheKey, jsonData, CACHE_TTL);

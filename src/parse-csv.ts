@@ -13,8 +13,8 @@ const toJson = (
   data: string,
   symbol: string,
   market: string,
-  start: number,
-  end = Infinity,
+  start: string,
+  end?: string,
 ): object => {
   const rows = data.split('\n');
   const headers = rows[0].split(',');
@@ -31,9 +31,11 @@ const toJson = (
     }, {} as Record<string, string>);
 
     const rowTimestamp = Math.floor(new Date(rowData.date).getTime() / 1000);
+    const startTimestamp = Math.floor(new Date(start).getTime() / 1000);
+    const endTimestamp = end ? Math.floor(new Date(end).getTime() / 1000) : Infinity;
 
     // Filter rows by start and end timestamps
-    if (rowTimestamp >= start && rowTimestamp <= end) {
+    if (rowTimestamp >= startTimestamp && rowTimestamp <= endTimestamp) {
       result.timestamp.push(rowTimestamp);
       result.indicators.quote[0].low.push(parseFloat(rowData.low));
       result.indicators.quote[0].high.push(parseFloat(rowData.high));
