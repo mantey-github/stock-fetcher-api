@@ -1,10 +1,11 @@
 {
   "name": "stock-fetcher-api",
   "version": "1.0.0",
-  "description": "API to read stocks data",
+  "description": "Simple and Efficient API for accessing historical stock data. NodeJs + Express.js + Typescript",
   "main": "script.js",
-  "author": "mantey-github",
+  "author": "Daniel Mantey",
   "license": "MIT",
+  "keywords": ["stock", "api", "express", "typescript", "nodejs", "eslint", "prettier"],
   "scripts": {
     "build": "tsc",
     "start": "node dist/script.js",
