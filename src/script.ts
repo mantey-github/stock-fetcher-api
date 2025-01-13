@@ -11,6 +11,8 @@ const port = 3000;
 const BASE_URL = process.env.BASE_URL;
 const CACHE_TTL = parseInt(process.env.CACHE_TTL || '300000', 10); // 5 minutes ttl
 
+// Troubleshooting Proxy Issues
+// https://github.com/express-rate-limit/express-rate-limit/wiki/Troubleshooting-Proxy-Issues
 app.use(rateLimiter);
 
 app.get('/api/v1', async (req: Request, res: Response) => {
@@ -29,7 +31,9 @@ app.get(
     const cacheKey = `${market}_${symbol}_${start}_${end}`;
 
     try {
-      const response = await fetch(`${BASE_URL}/${market}/${symbol.toUpperCase()}.csv`);
+      const response = await fetch(
+        `${BASE_URL}/${market.toLowerCase()}/${symbol.toUpperCase()}.csv`,
+      );
       if (!response.ok) {
         return next({
           status: 404,
