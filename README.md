@@ -100,3 +100,4 @@ curl "http://localhost:3000/api/v1/stocks/nasdaq/AAPL?start=1609459200&end=16121
 
 ## Contributions
 Contributions are welcome 🤗! If you’d like to add features, fix bugs, or improve the API, feel free to open a pull request.
+> Pro Tip: If you’re stuck debugging for hours, take a break. Trust me, I spent 5+ hours trying to deploy this to [Fly.io](https://fly.io/), only to realize I just needed to update the CLI. Rest is underrated. 😅
