@@ -57,8 +57,8 @@ Retrieve historical stock data for a specific market and stock symbol.
 |-----------|----------|---------------------------------------------------|
 | `:market` | String   | Exchange market name (nyse, nasdaq, etc).         |
 | `:symbol` | String   | Stock symbol (AAPL, GOOGL, TSLA, etc).            |
-| `start`   | Integer  | Start date in Unix timestamp (required).          |
-| `end`     | Integer  | End date in Unix timestamp (optional, defaults to `Infinity`). |
+| `start`   | Integer  | Start date in YYYY-MM-DD format (required).          |
+| `end`     | Integer  | End date in YYYY-MM-DD format (optional, defaults to `Infinity`). |
 
 **Request Example**:
 ```bash
